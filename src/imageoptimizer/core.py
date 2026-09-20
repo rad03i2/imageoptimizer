@@ -70,7 +70,10 @@ def _flatten_for_jpeg(image: Image.Image, background: str) -> Image.Image:
         rgba = image.convert("RGBA")
         bg = Image.new("RGBA", rgba.size, ImageColor.getrgb(background) + (255,))
         bg.alpha_composite(rgba)
-        return bg.convert("RGB")
+        rgba.close()
+        result = bg.convert("RGB")
+        bg.close()
+        return result
     return image.convert("RGB") if image.mode not in {"RGB", "L"} else image
 
 
@@ -88,9 +91,11 @@ def optimize_image(source: Path, output: Path, options: Options) -> ProcessResul
             input_format = (opened.format or "unknown").upper()
             exif = opened.info.get("exif") if options.keep_metadata else None
             icc = opened.info.get("icc_profile") if options.keep_metadata else None
-            image = ImageOps.exif_transpose(opened)
-            image.load()
-            image = image.copy()
+            oriented = ImageOps.exif_transpose(opened)
+            oriented.load()
+            image = oriented.copy()
+            if oriented is not opened:
+                oriented.close()
     except (OSError, UnidentifiedImageError) as exc:
         raise ImageOptimizerError(f"cannot decode image: {source}") from exc
 
@@ -103,9 +108,13 @@ def optimize_image(source: Path, output: Path, options: Options) -> ProcessResul
     if fmt == "jpg":
         fmt = "jpeg"
     if fmt not in FORMAT_EXTENSIONS:
+        image.close()
         raise ImageOptimizerError(f"unsupported output format: {fmt}")
     if fmt == "jpeg":
-        image = _flatten_for_jpeg(image, options.background)
+        flattened = _flatten_for_jpeg(image, options.background)
+        if flattened is not image:
+            image.close()
+            image = flattened
 
     save_kwargs: dict = {}
     if fmt in {"jpeg", "webp"}:
@@ -132,8 +141,14 @@ def optimize_image(source: Path, output: Path, options: Options) -> ProcessResul
     finally:
         image.close()
 
+    try:
+        with Image.open(output) as written:
+            width, height = written.size
+    except OSError as exc:
+        raise ImageOptimizerError(f"output could not be verified: {output}") from exc
+
     return ProcessResult(
         source=str(source), output=str(output), input_bytes=source.stat().st_size,
         output_bytes=output.stat().st_size, input_format=input_format,
-        output_format=fmt.upper(), width=Image.open(output).width, height=Image.open(output).height,
+        output_format=fmt.upper(), width=width, height=height,
     )
