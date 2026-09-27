@@ -1,21 +1,25 @@
-# Security Policy / سياسة الأمان
+# Security Policy
 
-ImageOptimizer is designed for local processing and makes no network requests. Treat image files as untrusted input and keep Pillow updated because image decoders process complex binary formats.
+ImageOptimizer is designed for local processing; the application code makes no network requests.
 
-## Reporting a vulnerability
+## Reporting
 
-Please do not publish exploitable details in a public issue before a fix is available. Contact the maintainer through the GitHub profile/repository channels and include reproduction steps, affected versions, and impact. Do not include real private images or credentials in reports.
+Use GitHub private security reporting when available. Do not publish exploitable details, private images, credentials, real EXIF location samples, or other sensitive material in public issues.
 
-## Supported versions
+## Untrusted image input
 
-The latest release/main branch receives security fixes.
+Image decoders handle complex binary formats. Treat unknown images as untrusted and keep Pillow and Python security updates current.
 
 ## Privacy
 
-Metadata is removed by default. `--keep-metadata` intentionally preserves supported metadata and may therefore retain location/device information present in a source image.
+Metadata is stripped by default. `--keep-metadata` intentionally attempts to retain supported EXIF/ICC data, which may contain location, time, or device information already present in the source.
 
-## العربية
+## File safety
 
-المشروع مصمم لمعالجة الصور محليًا ولا يجري طلبات شبكية. تعامل مع الصور كمدخلات غير موثوقة وحافظ على تحديث Pillow. عند اكتشاف ثغرة، لا تنشر تفاصيل قابلة للاستغلال قبل توفر إصلاح؛ تواصل عبر قنوات المستودع/حساب GitHub مع خطوات إعادة المشكلة وتأثيرها، ومن دون إرفاق صور خاصة أو بيانات اعتماد حقيقية.
+The implementation rejects in-place writes, protects existing outputs unless `--overwrite` is explicit, writes through a temporary output, removes that temporary file on encoding failure, and verifies final output dimensions.
 
-تُحذف البيانات الوصفية افتراضيًا. خيار `--keep-metadata` قد يحتفظ عمدًا بمعلومات حساسة موجودة أصلًا مثل بيانات الموقع أو الجهاز.
+These controls do not replace filesystem permissions, backups, sandboxing, or malware scanning.
+
+## Scope
+
+ImageOptimizer does not provide authentication, remote storage, or a web upload service. An embedding service must define its own upload limits, access controls, isolation, and content-security policy.

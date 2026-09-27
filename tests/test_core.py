@@ -4,7 +4,11 @@ import pytest
 from PIL import Image
 
 from imageoptimizer.core import (
-    ImageOptimizerError, Options, discover_images, optimize_image, output_path_for,
+    ImageOptimizerError,
+    Options,
+    discover_images,
+    optimize_image,
+    output_path_for,
 )
 
 

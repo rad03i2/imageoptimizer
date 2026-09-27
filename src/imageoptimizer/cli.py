@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from .core import ImageOptimizerError, Options, discover_images, optimize_image, output_path_for
 from .report import write_report

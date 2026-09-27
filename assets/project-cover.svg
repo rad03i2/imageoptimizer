@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 560" role="img" aria-labelledby="t d">
+<title id="t">ImageOptimizer project cover</title><desc id="d">Warm premium image optimization identity with layered image frames and compression motion.</desc>
+<defs>
+<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#151219"/><stop offset=".58" stop-color="#211927"/><stop offset="1" stop-color="#322235"/></linearGradient>
+<radialGradient id="h" cx="80%" cy="42%" r="45%"><stop stop-color="#FF7A54" stop-opacity=".22"/><stop offset="1" stop-color="#8B6CFF" stop-opacity="0"/></radialGradient>
+<linearGradient id="a" x1="0" y1="1" x2="1"><stop stop-color="#FF6B4A"/><stop offset=".52" stop-color="#FFB84D"/><stop offset="1" stop-color="#8B6CFF"/></linearGradient>
+</defs>
+<rect width="1600" height="560" rx="36" fill="url(#bg)"/><rect width="1600" height="560" rx="36" fill="url(#h)"/>
+<g transform="translate(94 96)">
+<rect width="105" height="30" rx="15" fill="#2A202D" stroke="#62485E"/><circle cx="18" cy="15" r="5" fill="#B8FF72"/>
+<text x="32" y="20" fill="#D9C9D7" font-size="13" font-family="Inter,Segoe UI,Arial" letter-spacing="1.1">LOCAL-FIRST</text>
+<text y="120" fill="#FFF8F0" font-size="70" font-weight="760" font-family="Inter,Segoe UI,Arial">ImageOptimizer</text>
+<text x="2" y="172" fill="#FFAD7D" font-size="27" font-weight="600" font-family="Inter,Segoe UI,Arial">Compress · convert · resize · batch</text>
+<text x="2" y="222" fill="#BFAFBD" font-size="21" font-family="Inter,Segoe UI,Arial">A safe command-line workflow for JPEG, PNG and WebP.</text>
+<g transform="translate(2 258)">
+<rect width="74" height="35" rx="11" fill="#2A202D" stroke="#6A4B52"/><text x="18" y="23" fill="#FFD5C7" font-size="14" font-family="Inter,Segoe UI,Arial">JPEG</text>
+<rect x="86" width="66" height="35" rx="11" fill="#2A202D" stroke="#6A5A42"/><text x="106" y="23" fill="#FFE2A3" font-size="14" font-family="Inter,Segoe UI,Arial">PNG</text>
+<rect x="164" width="78" height="35" rx="11" fill="#2A202D" stroke="#564A73"/><text x="183" y="23" fill="#D7CEFF" font-size="14" font-family="Inter,Segoe UI,Arial">WEBP</text>
+</g>
+<path d="M2 330h350" stroke="#483544" stroke-width="2"/>
+<text x="2" y="374" fill="#E7DCE5" font-size="18" font-family="Inter,Segoe UI,Arial">A Radwan Abd alhady Project</text>
+<text x="2" y="410" fill="#AA98A6" font-size="18" font-family="Tahoma,Arial">رضوان عبدالهادي</text>
+</g>
+<g transform="translate(900 82)">
+<rect x="25" y="50" width="270" height="322" rx="36" fill="#241C2A" stroke="#62485E" transform="rotate(-8 160 210)"/>
+<rect x="215" y="70" width="270" height="322" rx="36" fill="#241C2A" stroke="#594B72" transform="rotate(7 350 230)"/>
+<rect x="105" y="90" width="310" height="310" rx="46" fill="#1B171F" stroke="#FFF4E8" stroke-width="10"/>
+<circle cx="195" cy="182" r="30" fill="#FFB84D"/><path d="M143 342l78-86 54 50 48-59 55 95H143Z" fill="url(#a)"/>
+<g fill="none" stroke="#FFF4E8" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M70 220h55l-23-23m23 23-23 23"/><path d="M450 220h-55l23-23m-23 23 23 23"/></g>
+<g transform="translate(145 430)">
+<rect width="86" height="42" rx="13" fill="#2A202D" stroke="#6A4B52"/><text x="22" y="27" fill="#FFD5C7" font-size="14" font-family="Inter,Segoe UI,Arial">resize</text>
+<rect x="98" width="94" height="42" rx="13" fill="#2A202D" stroke="#6A5A42"/><text x="116" y="27" fill="#FFE2A3" font-size="14" font-family="Inter,Segoe UI,Arial">convert</text>
+<rect x="204" width="92" height="42" rx="13" fill="#2A202D" stroke="#564A73"/><text x="219" y="27" fill="#D7CEFF" font-size="14" font-family="Inter,Segoe UI,Arial">optimize</text>
+</g></g>
+</svg>

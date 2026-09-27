@@ -1,216 +1,210 @@
+<div align="center">
+
+<img src="assets/project-cover.svg" alt="ImageOptimizer — local-first image optimization toolkit by Radwan Abd alhady Ahmed" width="100%" />
+
+<br/>
+
+<img src="assets/project-logo.svg" alt="ImageOptimizer logo" width="108" />
+
 # ImageOptimizer
 
-A local-first Python image optimization toolkit for shrinking images, converting formats, resizing assets, and processing entire folders without uploading files to a third-party service.
+**Local-first image optimization for compression, format conversion, resizing, and repeatable batch workflows.**
 
-**Author:** Radwan Abdulhadi Ahmed · رضوان عبدالهادي أحمد · [@rad03i2](https://github.com/rad03i2)
+<div dir="rtl"><strong>أداة محلية لتحسين الصور وتحويل صيغها وتغيير أبعادها ومعالجة المجلدات بأمان، من دون رفع الملفات إلى خدمة خارجية.</strong></div>
 
-## Why ImageOptimizer?
+<br/>
 
-Websites, portfolios, documentation, and archives often contain images that are much larger than necessary. ImageOptimizer provides a reproducible command-line workflow for optimizing JPEG, PNG and WebP images while keeping originals untouched by default.
+[![CI](https://github.com/rad03i2/imageoptimizer/actions/workflows/ci.yml/badge.svg)](https://github.com/rad03i2/imageoptimizer/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
+![Pillow](https://img.shields.io/badge/Pillow-10%2B-FF6B4A)
+![Formats](https://img.shields.io/badge/formats-JPEG%20%7C%20PNG%20%7C%20WebP-8B6CFF)
+![License](https://img.shields.io/badge/license-MIT-B8FF72)
 
-## Features
+**[English guide](README_EN.md) · [الدليل العربي](README_AR.md) · [Architecture](docs/ARCHITECTURE.md) · [Brand](docs/BRAND.md) · [Security](SECURITY.md)**
 
-- Optimize JPEG, PNG and WebP files locally.
-- Convert between JPEG, PNG and WebP.
-- Resize by maximum width/height while preserving aspect ratio.
-- Batch-process a directory, optionally recursively.
-- Dry-run mode to preview every planned output.
-- Safe output policy: existing files are not overwritten unless `--overwrite` is explicitly supplied.
-- EXIF orientation correction before processing.
-- Optional metadata preservation (`--keep-metadata`); metadata is stripped by default for smaller, more private outputs.
-- JPEG transparency handling with a configurable background color.
-- JSON processing report with input/output byte counts and savings.
-- Deterministic exit codes and useful validation errors.
-
-## Requirements
-
-- Python 3.10+
-- Pillow 10+
-
-## Installation
-
-```bash
-git clone https://github.com/rad03i2/imageoptimizer.git
-cd imageoptimizer
-python -m venv .venv
-# Windows: .venv\Scripts\activate
-# Linux/macOS: source .venv/bin/activate
-python -m pip install -e .
-```
-
-For development and tests:
-
-```bash
-python -m pip install -e ".[dev]"
-pytest
-```
-
-## Usage
-
-Optimize one image:
-
-```bash
-imageoptimizer photo.jpg -o optimized/photo.jpg --quality 82
-```
-
-Convert and resize:
-
-```bash
-imageoptimizer photo.png -o optimized/photo.webp --format webp --max-width 1600 --max-height 1200 --quality 80
-```
-
-Batch process a folder:
-
-```bash
-imageoptimizer ./photos -o ./optimized --recursive --format webp --quality 80 --report report.json
-```
-
-Preview without writing anything:
-
-```bash
-imageoptimizer ./photos -o ./optimized --recursive --dry-run
-```
-
-Use `imageoptimizer --help` for all options.
-
-## Safety & privacy
-
-Processing happens locally. ImageOptimizer performs no network requests. Originals are never modified in place: the output path/directory must differ from the input. Existing outputs are protected unless `--overwrite` is given. Metadata is stripped by default; use `--keep-metadata` only when you intentionally want EXIF/ICC information retained.
-
-## Project structure
-
-```text
-src/imageoptimizer/
-  __init__.py      Package metadata
-  core.py          Validation and image processing engine
-  cli.py           Command-line interface
-  report.py        Processing result/report models
-tests/             Automated tests
-.github/workflows/ CI test workflow
-```
-
-## Testing
-
-```bash
-pytest -q
-```
-
-CI runs the test suite on Linux, Windows and macOS for supported Python versions.
-
-## Limitations
-
-- Animated GIF/animated WebP optimization is intentionally not implemented; the tool focuses on still JPEG/PNG/WebP images.
-- SVG and RAW camera formats are not rasterized.
-- Compression savings depend on the source image and chosen format/quality.
-- Metadata preservation is best-effort because not every metadata block is valid in every destination format.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md). Security-sensitive reports should follow [SECURITY.md](SECURITY.md).
-
-## License
-
-MIT License. See [LICENSE](LICENSE).
-
-## Author
-
-**Radwan Abdulhadi Ahmed**  
-**رضوان عبدالهادي أحمد**  
-GitHub: [@rad03i2](https://github.com/rad03i2)
+</div>
 
 ---
 
-# العربية
+## One tool, four image jobs
 
-## ما هو ImageOptimizer؟
+ImageOptimizer is a Python CLI designed around a simple rule: image processing should be **local, explicit, and safe by default**.
 
-**ImageOptimizer** أداة بايثون محلية لتحسين الصور وتقليل أحجامها وتحويل صيغها وتغيير أبعادها ومعالجة مجلدات كاملة، من دون رفع الصور إلى أي خدمة خارجية.
+| Job | Current behavior |
+|---|---|
+| Optimize | Re-encodes supported still images with format-specific optimization settings |
+| Convert | Converts between JPEG, PNG, and WebP |
+| Resize | Applies maximum width/height while preserving aspect ratio |
+| Batch | Processes a directory, optionally recursively, while preserving relative paths |
 
-## لماذا هذا المشروع؟
+It also corrects EXIF orientation before processing, protects existing outputs unless `--overwrite` is supplied, supports dry-run planning, and can write a JSON processing report.
 
-تحتوي المواقع ومعارض الأعمال والوثائق والأرشيفات غالبًا على صور أكبر من الحاجة. يوفر المشروع طريقة واضحة وقابلة للتكرار لتحسين صور JPEG وPNG وWebP مع إبقاء الملفات الأصلية دون تعديل افتراضيًا.
+## Processing flow
 
-## المزايا
+~~~text
+image or directory
+       │
+       ▼
+discover supported files
+       │
+       ▼
+validate options + output safety
+       │
+       ▼
+EXIF orientation correction
+       │
+       ├── optional resize
+       ├── optional format conversion
+       └── metadata policy
+       │
+       ▼
+temporary encoded output
+       │
+       ▼
+move into destination + verify
+       │
+       ▼
+structured processing result
+~~~
 
-- تحسين JPEG وPNG وWebP محليًا.
-- التحويل بين JPEG وPNG وWebP.
-- تحديد أقصى عرض وارتفاع مع الحفاظ على نسبة الأبعاد.
-- معالجة مجلد كامل مع خيار البحث داخل المجلدات الفرعية.
-- وضع `--dry-run` لمعاينة العمليات قبل الكتابة.
-- عدم استبدال ملف موجود إلا عند تمرير `--overwrite` صراحةً.
-- تصحيح اتجاه الصورة اعتمادًا على EXIF قبل المعالجة.
-- حذف البيانات الوصفية افتراضيًا للخصوصية وتقليل الحجم، مع خيار الاحتفاظ بها.
-- معالجة الشفافية عند التحويل إلى JPEG بخلفية قابلة للتحديد.
-- تقرير JSON يتضمن الحجم قبل وبعد ونسبة التوفير.
-- أخطاء تحقق واضحة ورموز خروج مناسبة للسكربتات والأتمتة.
+Original files are not modified in place.
 
-## التثبيت
+## Quick start
 
-```bash
+**Requirements:** Python 3.10+ and Pillow 10+.
+
+~~~bash
 git clone https://github.com/rad03i2/imageoptimizer.git
 cd imageoptimizer
 python -m venv .venv
 python -m pip install -e .
-```
+~~~
 
-للتطوير والاختبارات:
+### Optimize one image
 
-```bash
-python -m pip install -e ".[dev]"
-pytest
-```
-
-## أمثلة الاستخدام
-
-تحسين صورة واحدة:
-
-```bash
+~~~bash
 imageoptimizer photo.jpg -o optimized/photo.jpg --quality 82
-```
+~~~
 
-تحويل الصورة إلى WebP مع تصغير الأبعاد:
+### Convert and resize
 
-```bash
+~~~bash
 imageoptimizer photo.png -o optimized/photo.webp --format webp --max-width 1600 --max-height 1200 --quality 80
-```
+~~~
 
-معالجة مجلد كامل وإنتاج تقرير:
+### Process a folder
 
-```bash
+~~~bash
 imageoptimizer ./photos -o ./optimized --recursive --format webp --quality 80 --report report.json
-```
+~~~
 
-المعاينة من دون كتابة ملفات:
+### Preview without writing
 
-```bash
+~~~bash
 imageoptimizer ./photos -o ./optimized --recursive --dry-run
-```
+~~~
 
-## الخصوصية والأمان
+## CLI surface
 
-كل المعالجة محلية ولا ينفذ البرنامج طلبات شبكية. لا يعدل البرنامج الصور الأصلية في مكانها، ويحمي الملفات الموجودة من الاستبدال ما لم يطلب المستخدم ذلك صراحةً. تُحذف البيانات الوصفية افتراضيًا؛ استخدم `--keep-metadata` فقط عند الحاجة إليها.
+| Option | Purpose |
+|---|---|
+| `-o, --output` | Required output file or directory |
+| `--format jpeg\|png\|webp` | Select destination format |
+| `--quality 1-100` | JPEG/WebP quality; default 82 |
+| `--max-width N` / `--max-height N` | Bound output dimensions while preserving aspect ratio |
+| `--recursive` | Discover images in nested folders |
+| `--overwrite` | Allow replacing an existing output |
+| `--keep-metadata` | Preserve supported EXIF/ICC metadata |
+| `--background COLOR` | Background used when flattening transparency to JPEG |
+| `--dry-run` | Print planned outputs without writing |
+| `--report FILE` | Write a JSON processing report |
 
-## الاختبارات
+Use `imageoptimizer --help` for the complete generated CLI help.
 
-```bash
+## Format behavior
+
+- **JPEG:** configurable quality, optimized progressive encoding, and transparency flattening to the selected background.
+- **PNG:** Pillow optimization with compression level 9.
+- **WebP:** configurable quality with encoding method 6.
+
+ImageOptimizer focuses on **still** JPEG, PNG, and WebP files.
+
+## Privacy and file safety
+
+Processing is local and the application code performs no network requests.
+
+By default, metadata is not copied, existing destinations are protected, in-place writes are rejected, decoding failures are surfaced as user-facing errors, and encoding goes through a temporary file before the destination is replaced.
+
+Use `--keep-metadata` deliberately: source EXIF may contain device or location information.
+
+## JSON reports
+
+With `--report`, the tool records source/output paths, byte counts, formats, final dimensions, saved bytes, calculated savings percentage, and aggregate byte totals.
+
+No fixed compression percentage is promised; results depend on the source and chosen settings.
+
+## Tests and CI
+
+~~~bash
+python -m pip install -e ".[dev]"
+ruff check src tests
 pytest -q
-```
+~~~
 
-يتضمن المستودع سير عمل CI لاختبار المشروع على Linux وWindows وmacOS.
+GitHub Actions runs Ruff and Pytest on Ubuntu, Windows, and macOS using Python 3.10, 3.12, and 3.13.
 
-## القيود
+## Repository map
 
-- لا يعالج الرسوم المتحركة في GIF/WebP؛ التركيز على الصور الثابتة.
-- لا يحول SVG أو صيغ RAW الخاصة بالكاميرات.
-- مقدار تقليل الحجم يعتمد على الصورة الأصلية والصيغة والجودة المختارة.
-- الاحتفاظ بالبيانات الوصفية يعتمد على دعم صيغة الإخراج لها.
+~~~text
+imageoptimizer/
+├── assets/
+│   ├── project-cover.svg
+│   └── project-logo.svg
+├── docs/
+│   ├── ARCHITECTURE.md
+│   └── BRAND.md
+├── src/imageoptimizer/
+│   ├── __init__.py
+│   ├── cli.py
+│   ├── core.py
+│   └── report.py
+├── tests/
+│   ├── test_core.py
+│   └── test_report.py
+├── .github/
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── workflows/ci.yml
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── SECURITY.md
+├── pyproject.toml
+└── LICENSE
+~~~
 
-## المساهمة والترخيص
+## Current boundaries
 
-راجع [CONTRIBUTING.md](CONTRIBUTING.md) للمساهمة و[SECURITY.md](SECURITY.md) للإبلاغ الأمني. المشروع مرخص وفق MIT، والتفاصيل في [LICENSE](LICENSE).
+Animated GIF/animated WebP optimization, SVG rasterization, RAW camera decoding, a desktop GUI, and an online service are not implemented. Metadata preservation is best-effort because metadata blocks are not universally valid across destination formats.
 
-## المؤلف
+## Documentation
 
-**Radwan Abdulhadi Ahmed**  
-**رضوان عبدالهادي أحمد**  
-GitHub: [@rad03i2](https://github.com/rad03i2)
+| Document | Purpose |
+|---|---|
+| [README_EN.md](README_EN.md) | Full English guide |
+| [README_AR.md](README_AR.md) | الدليل العربي الكامل |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Processing flow and component responsibilities |
+| [docs/BRAND.md](docs/BRAND.md) | Visual identity system |
+| [SECURITY.md](SECURITY.md) | Image-input, metadata, and privacy guidance |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution and verification workflow |
+| [CHANGELOG.md](CHANGELOG.md) | Notable repository changes |
+
+---
+
+<div align="center">
+
+### Built by رضوان عبدالهادي
+
+**Radwan Abd alhady Ahmed · [@rad03i2](https://github.com/rad03i2)**
+
+<sub>Designed for local image workflows where output control and file safety matter.</sub>
+
+</div>

@@ -1,0 +1,48 @@
+name: Feature request
+description: Propose a focused ImageOptimizer improvement
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What workflow problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed capability
+      description: Describe the smallest useful implementation.
+    validations:
+      required: true
+  - type: dropdown
+    id: format
+    attributes:
+      label: Does this add or change format support?
+      options:
+        - "No"
+        - "Yes"
+        - "Unsure"
+    validations:
+      required: true
+  - type: dropdown
+    id: external
+    attributes:
+      label: Does this require an external service or network access?
+      options:
+        - "No"
+        - "Yes"
+        - "Unsure"
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety / metadata considerations
+      description: Mention overwrite, metadata, transparency, or privacy impact when relevant.
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context

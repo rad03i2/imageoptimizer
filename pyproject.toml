@@ -5,13 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "imageoptimizer-rad03i2"
 version = "1.0.0"
-description = "Local-first CLI for safe image optimization, conversion, resizing and batch processing."
+description = "Local-first Python CLI for safe image optimization, conversion, resizing and batch processing."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
-authors = [{name = "Radwan Abdulhadi Ahmed"}]
+authors = [{name = "Radwan Abd alhady Ahmed"}]
 dependencies = ["Pillow>=10.0,<12"]
-keywords = ["images", "optimization", "compression", "webp", "jpeg", "png", "cli"]
+keywords = ["images", "optimization", "compression", "webp", "jpeg", "png", "cli", "batch-processing", "local-first"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",

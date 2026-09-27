@@ -1,19 +1,34 @@
-# Contributing / المساهمة
+# Contributing to ImageOptimizer
 
-Thank you for improving ImageOptimizer. Please keep changes focused, safe, and covered by tests.
+Keep changes focused, safe for user files, and tested when behavior changes.
 
-1. Fork/branch from `main`.
-2. Install development dependencies with `python -m pip install -e ".[dev]"`.
-3. Run `ruff check src tests` and `pytest -q`.
-4. Add tests for behavior changes.
-5. Open a pull request describing the problem, solution, and validation performed.
+## Setup
 
-Do not commit credentials, private images, large generated binaries, or third-party assets without a compatible license.
+~~~bash
+python -m pip install -e ".[dev]"
+~~~
+
+## Required checks
+
+~~~bash
+ruff check src tests
+pytest -q
+~~~
+
+## Principles
+
+- Preserve the no-in-place-write rule.
+- Do not weaken existing-output protection without explicit design discussion.
+- Add tests for discovery, conversion, resizing, metadata, reporting, or path changes.
+- Do not introduce image uploads as an incidental dependency.
+- Do not commit private images, credentials, generated collections, or incompatible third-party assets.
+- Keep current capabilities separate from proposed features.
+- Document user-visible CLI changes.
 
 ## العربية
 
-نرحب بالمساهمات التي تحسن المشروع بشكل واضح وآمن. ثبّت اعتماديات التطوير، وأضف اختبارات لأي تغيير سلوكي، ثم شغّل `ruff check src tests` و`pytest -q` قبل فتح Pull Request. لا ترفع مفاتيح أو بيانات خاصة أو صورًا شخصية أو ملفات مولدة كبيرة أو أصولًا لا يسمح ترخيصها بإعادة التوزيع.
+يجب أن تبقى المساهمات آمنة على ملفات المستخدم، مع تشغيل Ruff والاختبارات وإضافة اختبارات لأي تغيير سلوكي. حافظ على منع الكتابة فوق الصورة الأصلية وحماية ملفات الإخراج، ولا تضف رفعًا شبكيًا للصور بصورة جانبية غير موثقة.
 
-## Maintainer / المشرف
+## Maintainer
 
-Radwan Abdulhadi Ahmed · رضوان عبدالهادي أحمد · @rad03i2
+**Radwan Abd alhady Ahmed** · **رضوان عبدالهادي** · [@rad03i2](https://github.com/rad03i2)
